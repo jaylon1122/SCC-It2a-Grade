@@ -11,35 +11,35 @@ public class Student {
           Scanner sc = new Scanner(System.in);
           
         System.out.print("Enter Student First Name: ");
-        String fname = sc.next();
+        String fname = sc.nextLine();
         System.out.print("Enter Student Last Name: ");
-        String lname = sc.next();
-        System.out.print("Year & Section ");
-        String ysec = sc.next();
+        String lname = sc.nextLine();
+       
         System.out.print("Contact No. : ");
-        String contact = sc.next();
+        String contact = sc.nextLine();
         System.out.print ("Address: ");
-        String add = sc.next();
+        String add = sc.nextLine();
         System.out.print("Gender: ");
-        String gen = sc.next();
+        String gen = sc.nextLine();
         System.out.print("Age: ");
         int age = sc.nextInt();
+        sc.nextLine();
         System.out.print("Status: ");
-        String stats = sc.next();          
+        String stats = sc.nextLine();          
         System.out.print("Email: ");
-        String email = sc.next();
+        String email = sc.nextLine();
         
-        String sqladd = "INSERT INTO Students (First_Name, Last_Name,Year_and_Section, Contact_No, Address, Gender, Age, Status, Email) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sqladd = "INSERT INTO Students (First_Name, Last_Name, Contact_No, Address, Gender, Age, Status, Email) VALUES (?,?,?,?,?,?,?,?)";
             
-        cf.addStudent(sqladd, fname, lname, ysec ,contact, add, gen, age, stats, email);
+        cf.addStudent(sqladd, fname, lname,contact, add, gen, age, stats, email);
       
      }
      
      public void viewStudent(){
          
           String qry = "SELECT * FROM Students";
-        String[] hdrs = {"Student ID", "First Name", "Last Name", "Year and Section","Contact No", "Address","Gender", "Age","Status","Email"};
-        String[] clmns = {"Student_ID", "First_Name", "Last_Name","Year_and_Section", "Contact_No", "Address", "Gender", "Age","Status","Email"};
+        String[] hdrs = {"Student ID", "First Name", "Last Name", "Contact No", "Address","Gender", "Age","Status","Email"};
+        String[] clmns = {"Student_ID", "First_Name", "Last_Name","Contact_No", "Address", "Gender", "Age","Status","Email"};
 
           ConFig cf = new ConFig();
          cf.viewStudent(qry, hdrs, clmns);
@@ -92,7 +92,7 @@ public class Student {
                  break;
              case 3:
                    sts.viewStudent();
-                   String sqlupdate = "UPDATE Students SET Year_and_Section =?, Contact_No = ?, Address = ?, Gender = ?, Age = ?, Status = ?, Email = ? WHERE  Student_ID = ?";
+                   String sqlupdate = "UPDATE Students SET  Contact_No = ?, Address = ?, Gender = ?, Age = ?, Status = ?, Email = ? WHERE  Student_ID = ?";
                    
                     
        int id;
@@ -107,26 +107,25 @@ public class Student {
                     }
                 } else {
                     System.out.println("Invalid input. Please enter a integer Student ID.");
-                    sc.next(); 
+                    sc.next();  
                 }
             }
-                   
-                   System.out.print("Enter new Year & Section: ");
-                   String newyear = sc.next();
+                 sc.nextLine();
                    System.out.print("Enter new Contact No: ");
-                   String newcon = sc.next();
+                   String newcon = sc.nextLine();
                    System.out.print("Enter new Address: ");
-                   String newadd = sc.next();
+                   String newadd = sc.nextLine();
                    System.out.print("Enter new Gender: ");
-                   String newgen = sc.next();
+                   String newgen = sc.nextLine();
                    System.out.print("Enter new Age: ");
                    int newage = sc.nextInt();
+                   sc.nextLine();
                    System.out.print("Enter new Status: ");
-                   String newtats = sc.next();
+                   String newtats = sc.nextLine();
                    System.out.print("Enter new Email: ");
-                   String newemail = sc.next();
+                   String newemail = sc.nextLine();
                    
-                   cf.updateStudent(sqlupdate, newyear, newcon, newadd, newgen, newage, newtats, newemail, id);
+                   cf.updateStudent(sqlupdate, newcon, newadd, newgen, newage, newtats, newemail, id);
                  break;
              case 4:
                  sts.viewStudent();

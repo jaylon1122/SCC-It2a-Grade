@@ -16,8 +16,7 @@ import java.sql.SQLException;
  * @author user
  */
 public class ConFig {
-        private Connection connection;
-    public static Connection connectDB() {
+           public static Connection connectDB() {
         Connection con = null;
         try {
             Class.forName("org.sqlite.JDBC"); // Load the SQLite JDBC driver
@@ -185,6 +184,25 @@ public class ConFig {
              }
              ResultSet rs = pst.executeQuery();
              if(rs.next()){
+                 result  = rs.getString("Program_Head");
+             }
+         }catch(SQLException e ){
+             System.out.println("Erorr retrieving single values: "+e.getMessage());
+         }
+         return  result;
+     }
+      public String getSingleVal1(String sql, Object... params){
+         String result = null;
+         
+         try(Connection conn = this.connectDB();
+             PreparedStatement pst  = conn.prepareStatement(sql)){
+             
+             
+             for(int i = 0; i < params.length; i++){
+                 pst.setObject(i + 1, params[i]);
+             }
+             ResultSet rs = pst.executeQuery();
+             if(rs.next()){
                  result  = rs.getString("Year_and_Section");
              }
          }catch(SQLException e ){
@@ -192,6 +210,38 @@ public class ConFig {
          }
          return  result;
      }
-      
+       public void viewStudents(String query, String[] header, String[] columns, int applicantId) {
+    try (Connection conn = this.connectDB();  // Use the configuration to get the connection
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        // Set the applicantId parameter for filtering
+        stmt.setInt(1, applicantId);
+        
+        ResultSet rs = stmt.executeQuery();
+
+        // Print header
+        for (String h : header) {
+            System.out.print(h + "\t");
+        }
+        System.out.println();
+        
+        // Print a separator line after the header for better readability
+        System.out.println("------------------------------------------------------------");
+
+        // Print rows
+        while (rs.next()) {
+            for (String col : columns) {
+                System.out.print(rs.getString(col) + "          \t");
+            }
+            System.out.println();
+            
+            // Print a separator line between rows
+            System.out.println("------------------------------------------------------------");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
      
 }

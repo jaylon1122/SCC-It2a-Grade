@@ -13,26 +13,23 @@ public class Program {
           ConFig cf = new ConFig();
           Scanner sc = new Scanner(System.in);
         
-         System.out.print("Enter name of Program: ");
-         String name = sc.next();
-         sc.nextLine();
+         System.out.print("Enter name of Course: ");
+         String name = sc.nextLine();
+         
+         System.out.print("Enter Course Code: ");
+         String code = sc.nextLine();
          System.out.print("Program Head: ");
          String head = sc.nextLine();
-         System.out.print("Duration of Program: ");
-         String duration = sc.nextLine();
-         System.out.print("Credits: ");
-         int credits = sc.nextInt();
-         
-         String sqlprogram = "INSERT INTO Program (Program, Program_Head, Duration, Credits) VALUES (?,?,?,?)";
-         cf.addStudent(sqlprogram,name, head, duration, credits); 
+         String sqlprogram = "INSERT INTO Course (Course, Course_Code, Program_Head) VALUES (?,?,?)";
+         cf.addStudent(sqlprogram,name, code, head); 
         
     }
     public void viewProgram(){
             ConFig cf = new ConFig();
         
-         String qry = "SELECT * FROM Program";
-        String[] hdrs = {"Program ID", "Program", "Program Head", "Duration", "Credits"};
-        String[] clmns = {"Program_ID", "Program", "Program_Head", "Duration", "Credits"};
+         String qry = "SELECT * FROM Course";
+        String[] hdrs = {"Course ID ", "Course", "Course Code", "Program Head"};
+        String[] clmns = {"Program_ID", "Course", "Course_Code", "Program_Head"};
         
         cf.viewStudent(qry, hdrs, clmns);
       
@@ -50,10 +47,10 @@ public class Program {
         System.out.println("\n=======================================");
         System.out.println("        Program Management Menu       ");
         System.out.println("=======================================");
-        System.out.println("1. Add Program");
-        System.out.println("2. View Program");
-        System.out.println("3. Update Program");
-        System.out.println("4. Delete Program");
+        System.out.println("1. Add Course");
+        System.out.println("2. View Course");
+        System.out.println("3. Update Course");
+        System.out.println("4. Delete Course");
         System.out.println("5. Exit");
         System.out.println("=======================================");        
           
@@ -82,50 +79,51 @@ public class Program {
                  break;
              case 3:
                     pg.viewProgram();
-                    String update = "UPDATE Program SET Program_Head = ?, Duration = ?, Credits = ? WHERE Program_ID = ? ";
+                    String update = "UPDATE Course SET Course = ?, Course_Code  = ?, Program_Head = ? WHERE Program_ID = ? ";
                     
                  
                      int up;
                 while (true) {
-                System.out.print("Enter Program ID to update: ");
+                System.out.print("Enter Course ID to update: ");
                 if (sc.hasNextInt()) {
                     up = sc.nextInt();
-                    if (cf.getSingleValues("SELECT Program_ID  FROM Program  WHERE Program_ID = ?", up) != 0) {
+                    if (cf.getSingleValues("SELECT Program_ID  FROM Course WHERE Program_ID = ?", up) != 0) {
                         break;
                     } else {
-                        System.out.println("Selected Program doesn't exist.");
+                        System.out.println("Selected Course doesn't exist.");
                     }
                 } else {
-                    System.out.println("Invalid input. Please enter a integer Program ID.");
+                    System.out.println("Invalid input. Please enter a integer Course ID.");
                     sc.next(); 
                 }
             }
+                    sc.nextLine();
+                    System.out.print("Enter new Course: ");
+                    String newcourse  = sc.nextLine();
+                    System.out.print("Enter new Course Code: ");
+                    String newcode  = sc.nextLine();
                     System.out.print("Enter new Program Head: ");
-                    String newhead = sc.next();
-                    System.out.print("Enter new Duration: ");
-                    String newdur = sc.next();
-                    System.out.print("Enter new Credits: ");
-                    String newcred = sc.next();
+                    String newhead = sc.nextLine();
                     
-                    cf.updateStudent(update, newhead, newdur, newcred, up);
+                    cf.updateStudent(update, newcourse,newcode, newhead, up);
                  break;
              case 4:
                   pg.viewProgram();
-                  String delete = "DELETE FROM Program  WHERE Program_ID = ?";
+                  String delete = "DELETE FROM Course  WHERE Program_ID = ?";
                 
                   
                   int del;
                 while (true) {
-                System.out.print("Enter Program ID to delete: ");
+                System.out.print("Enter Course ID to delete: ");
                 if (sc.hasNextInt()) {
                     del = sc.nextInt();
-                    if (cf.getSingleValues("SELECT Program_ID  FROM Program  WHERE Program_ID = ?", del) != 0) {
+                    if (cf.getSingleValues("SELECT Program_ID  FROM Course  WHERE Program_ID = ?", del) != 0) {
                         break;
                     } else {
-                        System.out.println("Selected Program doesn't exist.");
+                        System.out.println("Selected Course doesn't exist.");
                     }
                 } else {
-                    System.out.println("Invalid input. Please enter a integer Program ID.");
+                    System.out.println("Invalid input. Please enter a integer Course ID.");
                     sc.next(); 
                 }
             }
