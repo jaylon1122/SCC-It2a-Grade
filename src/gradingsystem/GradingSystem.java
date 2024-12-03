@@ -11,6 +11,7 @@ public class GradingSystem {
         boolean exit = true;
 
         do {
+            System.out.println("");
             System.out.println("\n=======================================");
             System.out.println("           Grading System Menu        ");
             System.out.println("=======================================");
